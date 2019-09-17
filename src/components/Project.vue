@@ -20,6 +20,7 @@ li {
   padding: 10px;
   border: 1px solid #666;
   margin: 5px;
+  color: #fff;
 }
 
 .BP {
