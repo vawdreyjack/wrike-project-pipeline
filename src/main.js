@@ -3,13 +3,8 @@ import App from './App.vue'
 import VueResource from 'vue-resource';
 
 Vue.use(VueResource);
+Vue.use(require('vue-moment'));
 Vue.config.productionTip = false
-
-/* new Vue({
-  render: h => h(App)
-}).$mount('#app')
- */
-
 
 new Vue({
   components: {App},

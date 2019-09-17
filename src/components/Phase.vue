@@ -5,8 +5,8 @@
         <Project 
         v-for="item in phase.projects"
         :key="item.id"
-        :title="item.title"
-        :class="item.customFields[0].value"
+        :project="item"
+        :class="(item.title.split(' -')[0])"
         />
     </ul>
   </div>
@@ -45,4 +45,37 @@ ul {
 a {
   color: #42b983;
 }
+
+.Planned {
+  border-top: 20px solid #E91D63;
+}
+
+.Writing {
+  border-top: 20px solid #8BC34A;
+}
+
+.Editing {
+  border-top: 20px solid #009588;
+}
+
+.Design {
+  border-top: 20px solid #9C27B0;
+}
+
+.Approval {
+  border-top: 20px solid #00BCD4;
+}
+
+.Publication {
+  border-top: 20px solid #2096F3;
+}
+
+.Completed {
+  border-top: 20px solid #8BC34A;
+}
+
+.Review {
+  border-top: 20px solid #CDDC39;
+}
+
 </style>

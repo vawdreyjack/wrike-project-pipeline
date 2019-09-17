@@ -6,7 +6,8 @@
     <Phase
     v-for="phase in phases"
     v-bind:phase="phase"
-    v-bind:key="phase.id" 
+    v-bind:key="phase.id"
+    v-bind:class="phase.title"
     />
     <div v-if="isReady">
       <ul>
@@ -55,10 +56,6 @@ export default {
       phase.projects = data[phase.title];
     });
     console.log(this.phases);
-
-    //const { data : { data : data } } = await request();
-    //console.log('Result', data[0].childIds);
-    //this.childFolders = result.data; //Shows all folders in our instance
   }
 }
 </script>
@@ -72,6 +69,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px 10px 0 0;
 }
 </style>
