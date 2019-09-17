@@ -1,12 +1,12 @@
 <template>
-    <li>{{ name }}</li>
+    <li>{{ title }}</li>
 </template>
 
 <script>
 export default {
   name: 'Project',
   props: {
-    name: String
+    title: String
   }
 }
 </script>
@@ -14,22 +14,29 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.phase {
-    width:300px;
-    height:100%;
+li {
+  text-align: left;
+  margin: 0 10px;
+  padding: 10px;
+  border: 1px solid #666;
+  margin: 5px;
 }
 
-h3 {
-  margin: 40px 0 0;
+.BP {
+  background-color: green;
+
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.CS {
+  background-color: steelblue;
 }
-li {
-  margin: 0 10px;
+
+.SE {
+  background-color: maroon;
 }
-a {
-  color: #42b983;
+
+.PR {
+  background-color: tomato;
 }
+
 </style>

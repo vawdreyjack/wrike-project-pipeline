@@ -21,14 +21,14 @@ import Phase from './components/Phase.vue'
 import request from './js/request.js'
 
 let phases = [
-    {id:1,title: 'Planned', projects: [{ id:1, name:"Project1"}, { id:2, name:"Project2"}]},
-    {id:2,title: 'Writing', projects: [{ id:1, name:"Project1"}]},
-    {id:3,title: 'Editing', projects: [{ id:1, name:"Project1"}]},
-    {id:4,title: 'Design', projects: [{ id:1, name:"Project1"}]},
-    {id:5,title: 'Approval', projects: [{ id:1, name:"Project1"}]},
-    {id:6,title: 'Publication', projects: [{ id:1, name:"Project1"}]},
-    {id:7,title: 'Completed', projects: [{ id:1, name:"Project1"}]},
-    {id:8,title: 'Review', projects: [{ id:1, name:"Project1"}]}
+    {id:1,title: 'Planned', projects: [{ id:1, title:"Project1"}, { id:2, title:"Project2"}]},
+    {id:2,title: 'Writing', projects: [{ id:1, title:"Project1"}]},
+    {id:3,title: 'Editing', projects: [{ id:1, title:"Project1"}]},
+    {id:4,title: 'Design', projects: [{ id:1, title:"Project1"}]},
+    {id:5,title: 'Approval', projects: [{ id:1, title:"Project1"}]},
+    {id:6,title: 'Publication', projects: [{ id:1, title:"Project1"}]},
+    {id:7,title: 'Completed', projects: [{ id:1, title:"Project1"}]},
+    {id:8,title: 'Review', projects: [{ id:1, title:"Project1"}]}
   ];
 
 export default {
@@ -48,7 +48,14 @@ export default {
 
   },
   mounted : async function() {
-    request();
+    const data = await request();
+    console.log(data);
+    //this.phases = this.phases.map(phase => phase.projects = data[phase.title]);
+    this.phases.forEach(phase => {
+      phase.projects = data[phase.title];
+    });
+    console.log(this.phases);
+
     //const { data : { data : data } } = await request();
     //console.log('Result', data[0].childIds);
     //this.childFolders = result.data; //Shows all folders in our instance
@@ -58,6 +65,8 @@ export default {
 
 <style>
 #app {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

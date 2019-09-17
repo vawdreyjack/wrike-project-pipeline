@@ -23,31 +23,31 @@ export default async () => {
     projects.forEach( async (projectId) => {
       const { data: { data: details }  } = await axios.get(`https://www.wrike.com/api/v4/folders/${projectId}`, requestOptions);
       //console.log('Project details', details);
-      const { title, project } = details[0];
-      switch (project.customStatusId) {
+      const { project : { customStatusId : status }  } = details[0];
+      switch (status) {
         case "IEABFWPQJMA53SF4": //Planned
-          output.Planned.push(title);
+          output.Planned.push(details[0]);
           break;
         case "IEABFWPQJMA53SGG": //Writing
-          output.Writing.push(title);
+          output.Writing.push(details[0]);
           break;
         case "IEABFWPQJMA53SGQ": //Editing
-          output.Editing.push(title);
+          output.Editing.push(details[0]);
           break;
         case "IEABFWPQJMA53SHE": //Design
-          output.Design.push(title);
+          output.Design.push(details[0]);
           break;
         case "IEABFWPQJMA53SG2": //Approval
-          output.Approval.push(title);
+          output.Approval.push(details[0]);
           break;
         case "IEABFWPQJMA53SHO": //Publication
-          output.Publication.push(title);
+          output.Publication.push(details[0]);
           break;
         case "IEABFWPQJMA53SF5": //Publication
-          output.Completed.push(title);
+          output.Completed.push(details[0]);
           break;    
         case "IEABFWPQJMA53SHZ": //Review
-          output.Review.push(title);
+          output.Review.push(details[0]);
           break;
       }
 
@@ -55,8 +55,6 @@ export default async () => {
     });
 
   });
-
-  console.log(output);
 
   return output;
 

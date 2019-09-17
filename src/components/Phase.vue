@@ -5,7 +5,8 @@
         <Project 
         v-for="item in phase.projects"
         :key="item.id"
-        :name="item.name"
+        :title="item.title"
+        :class="item.customFields[0].value"
         />
     </ul>
   </div>
@@ -40,10 +41,7 @@ ul {
   list-style-type: none;
   padding: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+
 a {
   color: #42b983;
 }
