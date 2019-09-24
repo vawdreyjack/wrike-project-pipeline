@@ -23,31 +23,34 @@ export default async () => {
     projects.forEach( async (projectId) => {
       const { data: { data: details }  } = await axios.get(`https://www.wrike.com/api/v4/folders/${projectId}`, requestOptions);
       //console.log('Project details', details);
+      const data = details[0];
       const { project : { customStatusId : status }  } = details[0];
+      data.type = data.title.split(' -')[0];
+
       switch (status) {
         case "IEABFWPQJMA53SF4": //Planned
-          output.Planned.push(details[0]);
+          output.Planned.push(data);
           break;
         case "IEABFWPQJMA53SGG": //Writing
-          output.Writing.push(details[0]);
+          output.Writing.push(data);
           break;
         case "IEABFWPQJMA53SGQ": //Editing
-          output.Editing.push(details[0]);
+          output.Editing.push(data);
           break;
         case "IEABFWPQJMA53SHE": //Design
-          output.Design.push(details[0]);
+          output.Design.push(data);
           break;
         case "IEABFWPQJMA53SG2": //Approval
-          output.Approval.push(details[0]);
+          output.Approval.push(data);
           break;
         case "IEABFWPQJMA53SHO": //Publication
-          output.Publication.push(details[0]);
+          output.Publication.push(data);
           break;
         case "IEABFWPQJMA53SF5": //Publication
-          output.Completed.push(details[0]);
+          output.Completed.push(data);
           break;    
         case "IEABFWPQJMA53SHZ": //Review
-          output.Review.push(details[0]);
+          output.Review.push(data);
           break;
       }
 

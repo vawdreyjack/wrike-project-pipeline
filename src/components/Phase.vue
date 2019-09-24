@@ -6,7 +6,7 @@
         v-for="item in phase.projects"
         :key="item.id"
         :project="item"
-        :class="(item.title.split(' -')[0])"
+        :class="item.type"
         />
     </ul>
   </div>

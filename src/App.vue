@@ -3,16 +3,19 @@
 
 <template>
   <div id="app">
-    <Phase
-    v-for="phase in phases"
-    v-bind:phase="phase"
-    v-bind:key="phase.id"
-    v-bind:class="phase.title"
-    />
-    <div v-if="isReady">
+    <div id="toolbar">
+      <h2>Average days in pipeline</h2>
       <ul>
-        <li v-for="(item, index) in childFolders" :key="index">{{ item }}</li>
+        <li v-for="(num, type) in avgTimeByType" v-bind:num="num">{{ type }}: {{ num }}</li>
       </ul>
+    </div>
+    <div id="phase-cont">
+      <Phase
+      v-for="phase in phases"
+      v-bind:phase="phase"
+      v-bind:key="phase.id"
+      v-bind:class="phase.title"
+      />
     </div>
   </div>
 </template>
@@ -41,8 +44,31 @@ export default {
     return {
       phases: phases,
       childFolders: Array,
-      isReady: false,
-      folders: Array
+      isReady: false
+    }
+  },
+  computed: {
+    avgTime() {
+      const fullArray = this.phases.reduce((acc, val) => {
+          const pArray = val.projects.map(project => (new Date().getTime() - new Date(project.createdDate).getTime()) / (24 * 3600 * 1000));
+          return [...acc, ...pArray]
+      }, []);
+      return Math.round(fullArray.reduce((a,b) => a + b, 0) / fullArray.length);
+    },
+    avgTimeByType() {
+      const arrays = this.phases.reduce((acc, val) => {
+        val.projects.forEach(project => {
+          const days = (new Date().getTime() - new Date(project.createdDate).getTime()) / (24 * 3600 * 1000);
+          !(acc[project.type]) ? acc[project.type] = [days] : acc[project.type].push(days);
+        })
+        return acc;
+      }, {});
+      const averages = Object.keys(arrays).reduce((acc, val) => {
+        const averageDays = Math.round(arrays[val].reduce((a,b) => a + b, 0) / arrays[val].length);
+        acc[val] = averageDays;
+        return acc;
+      }, {});
+      return averages;
     }
   },
   methods: {
@@ -61,7 +87,7 @@ export default {
 </script>
 
 <style>
-#app {
+#phase-cont {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
