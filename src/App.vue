@@ -3,20 +3,20 @@
 
 <template>
   <div id="app">
-    <div id="toolbar">
-      <h2>Average days in pipeline</h2>
-      <ul>
-        <li v-for="(num, type) in avgTimeByType" v-bind:num="num">{{ type }}: {{ num }}</li>
-      </ul>
+    <div id="pipe-metrics">
+      <table>
+        <tr><th>Category</th><th>Avg. Days in Pipe</th></tr>
+        <tr v-for="(num, type) in avgTimeByType" v-bind:num="num" v-bind:key="type">
+          <td>{{ type }}</td><td>{{ num }}</td>
+        </tr>
+      </table>
     </div>
-    <div id="phase-cont">
-      <Phase
-      v-for="phase in phases"
-      v-bind:phase="phase"
-      v-bind:key="phase.id"
-      v-bind:class="phase.title"
-      />
-    </div>
+    <Phase
+    v-for="phase in phases"
+    v-bind:phase="phase"
+    v-bind:key="phase.id"
+    v-bind:class="phase.title"
+    />
   </div>
 </template>
 
@@ -87,14 +87,33 @@ export default {
 </script>
 
 <style>
-#phase-cont {
+#app {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin: 60px 10px 0 0;
+}
+
+#pipe-metrics {
+  min-width: 400px;
+}
+
+#pipe-metrics table {
+  text-align: left;
+  font-size: 30px;
+  border-collapse: collapse;
+  vertical-align: center;
+}
+
+#pipe-metrics table, th, td {
+  border: 1px solid #999;
+}
+
+#pipe-metrics th, td {
+  padding: 10px;
 }
 </style>
