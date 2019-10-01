@@ -8,20 +8,22 @@
         :project="item"
         :class="item.type"
         />
+
     </ul>
   </div>
 </template>
 
 <script>
 import Project from './Project.vue'
-
+import draggable from 'vuedraggable'
 export default {
   name: 'Phase',
   props: {
     phase: Object
   },
   components: {
-    Project
+    Project,
+    draggable
   }
 }
 </script>
