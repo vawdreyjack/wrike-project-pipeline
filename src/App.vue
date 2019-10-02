@@ -25,14 +25,14 @@ import Phase from './components/Phase.vue'
 import request from './js/request.js'
 
 let phases = [
-    {id:1,title: 'Planned', projects: [{ id:1, title:"Project1"}, { id:2, title:"Project2"}]},
-    {id:2,title: 'Writing', projects: [{ id:1, title:"Project1"}]},
-    {id:3,title: 'Editing', projects: [{ id:1, title:"Project1"}]},
-    {id:4,title: 'Design', projects: [{ id:1, title:"Project1"}]},
-    {id:5,title: 'Approval', projects: [{ id:1, title:"Project1"}]},
-    {id:6,title: 'Publication', projects: [{ id:1, title:"Project1"}]},
-    {id:7,title: 'Completed', projects: [{ id:1, title:"Project1"}]},
-    {id:8,title: 'Review', projects: [{ id:1, title:"Project1"}]}
+    {id:"IEABFWPQJMA53SF4", title: 'Planned', projects: [{ id:1, title:"Project1"}, { id:2, title:"Project2"}]},
+    {id:"IEABFWPQJMA53SGG", title: 'Writing', projects: [{ id:1, title:"Project1"}]},
+    {id:"IEABFWPQJMA53SGQ", title: 'Editing', projects: [{ id:1, title:"Project1"}]},
+    {id:"IEABFWPQJMA53SHE", title: 'Design', projects: [{ id:1, title:"Project1"}]},
+    {id:"IEABFWPQJMA53SG2", title: 'Approval', projects: [{ id:1, title:"Project1"}]},
+    {id:"IEABFWPQJMA53SHO", title: 'Publication', projects: [{ id:1, title:"Project1"}]},
+    {id:"IEABFWPQJMA53SF5", title: 'Completed', projects: [{ id:1, title:"Project1"}]},
+    {id:"IEABFWPQJMA53SHZ", title: 'Review', projects: [{ id:1, title:"Project1"}]}
   ];
 
 export default {
