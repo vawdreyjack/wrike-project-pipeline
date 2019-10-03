@@ -76,8 +76,6 @@ export default {
   },
   mounted : async function() {
     const data = await request();
-    console.log(data);
-    //this.phases = this.phases.map(phase => phase.projects = data[phase.title]);
     this.phases.forEach(phase => {
       phase.projects = data[phase.title];
     });

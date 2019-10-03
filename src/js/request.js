@@ -10,7 +10,8 @@ const requestOptions = {
 
 export default async () => {
 
-  const { data: { data: data }  }  = await axios.get('https://www.wrike.com/api/v4/folders/IEABFWPQI4LJT5AQ', requestOptions);
+  const { data: { data: data }  }  = await axios.get(`https://www.wrike.com/api/v4/folders/${keys.FOLDER_ID}`, requestOptions);
+  const workflow = await axios.get(`https://www.wrike.com/api/v4/folders/${keys.WORKFLOW_ID}` ,requestOptions);
   const subs = data[0].childIds;
 
   const output = {Planned: [], Writing: [], Editing: [], Design: [], Approval: [], Publication: [], Completed: [], Review: []};

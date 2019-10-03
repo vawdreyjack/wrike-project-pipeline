@@ -32,8 +32,8 @@ export default {
     async handleChange(e) {
       //Updating the asset remotely
       if (e.added) {
-        console.log('Project Id', e.added.element.id);
-        console.log('Phase Id', this.phase.id);
+        //console.log('Project Id', e.added.element.id);
+        //console.log('Phase Id', this.phase.id);
         const data =  {
           project: {
               customStatusId: this.phase.id
@@ -43,7 +43,7 @@ export default {
           headers: {'Authorization': 'Bearer ' + keys.WRIKE_TOKEN}
         }
         const response = await axios.put(`https://www.wrike.com/api/v4/folders/${e.added.element.id}`, data, config);
-        console.log(response);
+        //axios.post(`http://52.14.240.149/update-project-status`, data);
       }
     }
   }
