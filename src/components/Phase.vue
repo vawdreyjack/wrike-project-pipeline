@@ -42,7 +42,7 @@ export default {
         const config = {
           headers: {'Authorization': 'Bearer ' + keys.WRIKE_TOKEN}
         }
-        const response = await axios.put(`https://www.wrike.com/api/v4/folders/${e.added.element.id}`, data, config);
+        axios.put(`https://www.wrike.com/api/v4/folders/${e.added.element.id}`, data, config);
         //axios.post(`http://52.14.240.149/update-project-status`, data);
       }
     }
@@ -72,6 +72,10 @@ a {
 
 .Planned {
   border-top: 20px solid #E91D63;
+}
+
+.Activated {
+  border-top: 20px solid #FF9800;
 }
 
 .Writing {

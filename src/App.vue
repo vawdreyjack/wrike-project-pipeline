@@ -32,7 +32,6 @@ let phases = [
     {id:"IEABFWPQJMA53SG2", title: 'Approval', projects: [{ id:1, title:"Project1"}]},
     {id:"IEABFWPQJMA53SHO", title: 'Publication', projects: [{ id:1, title:"Project1"}]},
     {id:"IEABFWPQJMA53SF5", title: 'Completed', projects: [{ id:1, title:"Project1"}]},
-    {id:"IEABFWPQJMA53SHZ", title: 'Review', projects: [{ id:1, title:"Project1"}]}
   ];
 
 export default {
@@ -84,7 +83,7 @@ export default {
 <style>
 #app {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
