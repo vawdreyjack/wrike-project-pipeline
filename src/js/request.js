@@ -10,33 +10,29 @@ const requestOptions = {
 
 export default async () => {
 
-  const { data: { data: data }  }  = await axios.get(`https://www.wrike.com/api/v4/folders/${keys.FOLDER_ID}`, requestOptions);
-  const workflow = await axios.get(`https://www.wrike.com/api/v4/folders/${keys.WORKFLOW_ID}` ,requestOptions);
-  const subs = data[0].childIds;
+  const { data: { data: data } }  = await axios.get(`https://www.wrike.com/api/v4/folders/${keys.FOLDER_ID}`, requestOptions);
+  const { data: { data: flows } } = await axios.get(`https://www.wrike.com/api/v4/workflows/`, requestOptions);
+  const workflow = flows.filter(flow => flow.id == keys.WORKFLOW_ID)[0];
+  const output = workflow.customStatuses.map(status => ({ id: status.id, title: status.name, projects: [] }));
 
-  //const output = {Planned: [], Writing: [], Editing: [], Design: [], Approval: [], Publication: [], Completed: [], Review: []};
-  const output = [];
-  const projects = [];
+  const subIds = data[0].childIds;
 
-  subs.forEach( async (sub) => {
-    const { data: { data: details }  } = await axios.get(`https://www.wrike.com/api/v4/folders/${sub}`, requestOptions);
-    //console.log('Sub folder details', details);
-    const phaseObject = {
-      id: sub,
-      title: details.title,
-      projects: []
-    }
-    output.push(phaseObject);
-    projects.concat(details[0].childIds);
-  });
-
-  const { data: { data: projectDetails }} = await axios.get(`https://www.wrike.com/api/v4/folders/${projects.join(',')}`);
-
+  const { data: { data: subFolders } } = await axios.get(`https://www.wrike.com/api/v4/folders/${subIds.join(',')}`, requestOptions);
+  const projectIds = subFolders.reduce((acc, folder) => [...acc, ...folder.childIds], []);
+  
+  //Sort the projects into the appropriate phases
+  const { data: { data: projectDetails }} = await axios.get(`https://www.wrike.com/api/v4/folders/${projectIds.join(',')}`, requestOptions);
   projectDetails.forEach(p => {
-    console.log(p);
+    const { project: { customStatusId : statusId } } = p;
+    const index = output.findIndex(x => x.id == statusId);
+    index != -1 ? output[index].projects.push({ ...p, type: p.title.split(' -')[0] } ): null;
   });
+  console.log(output);
+  return output;
+  
+}
 
-  /*projects.forEach( async (projectId) => {
+/*projects.forEach( async (projectId) => {
     const { data: { data: details }  } = await axios.get(`https://www.wrike.com/api/v4/folders/${projectId}`, requestOptions);
     //console.log('Project details', details);
     const data = details[0];
@@ -72,8 +68,5 @@ export default async () => {
 
 
   });
-
-
-  return output;
   */
-}
+

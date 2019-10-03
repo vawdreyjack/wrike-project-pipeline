@@ -76,10 +76,7 @@ export default {
   },
   mounted : async function() {
     const data = await request();
-    this.phases.forEach(phase => {
-      phase.projects = data[phase.title];
-    });
-    console.log(this.phases);
+    this.phases = data;
   }
 }
 </script>
