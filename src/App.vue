@@ -16,6 +16,7 @@
     v-bind:phase="phase"
     v-bind:key="phase.id"
     v-bind:class="phase.title"
+    v-bind:users="users"
     />
   </div>
 </template>
@@ -34,6 +35,8 @@ let phases = [
     {id:"IEABFWPQJMA53SF5", title: 'Completed', projects: [{ id:1, title:"Project1"}]},
   ];
 
+let users = [];
+
 export default {
   name: 'app',
   components: {
@@ -42,6 +45,7 @@ export default {
   data() {
     return {
       phases: phases,
+      users: users,
       childFolders: Array,
       isReady: false
     }
@@ -74,8 +78,9 @@ export default {
 
   },
   mounted : async function() {
-    const data = await request();
-    this.phases = data;
+    const { output, users } = await request();
+    this.phases = output;
+    this.users = users;
   }
 }
 </script>

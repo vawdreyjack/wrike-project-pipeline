@@ -8,6 +8,7 @@
           :key="item.id"
           :project="item"
           :class="item.type"
+          :users="users"
         />
       </draggable>
     </ul>
@@ -22,7 +23,8 @@ import keys from '../../keys.js'
 export default {
   name: 'Phase',
   props: {
-    phase: Object
+    phase: Object,
+    users: Array
   },
   components: {
     Project,

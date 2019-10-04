@@ -1,10 +1,12 @@
 <template>
     <li>
       <span>{{ project.title }}</span>
-      <span style="justify-self:right;"><a :href="project.permalink" target="_blank"><img src="../assets/icons/external-link.png"></a></span>
+      <span><div class="image-cropper"><img class="avatar" :src="avatarUrl"></div></span>
+      
       <span><hr></span>
       <span></span>
-      <span>{{ daysInPipe }}</span>
+      <span>Created {{ daysInPipe }}</span>
+      <span style="justify-self:right;"><a :href="project.permalink" target="_blank"><img src="../assets/icons/external-link.png"></a></span>
     </li>
 </template>
 
@@ -14,10 +16,14 @@ export default {
   name: 'Project',
   props: {
     project: Object,
+    users: Array
   },
   computed: {
     daysInPipe() {
       return (this.project.project) ? moment(this.project.project.createdDate).fromNow() : null;
+    },
+    avatarUrl() {
+      return this.users.filter(user => user.id == this.project.project.ownerIds[0])[0].avatarUrl;
     }
   }
 }
@@ -28,7 +34,7 @@ export default {
 
 li {
   display: grid;
-  grid-template-columns: 1fr 30px;
+  grid-template-columns: 1fr 60px;
   grid-column-gap: 2px;
   min-height: 50px;
   text-align: left;
@@ -41,6 +47,18 @@ li {
 
 li span {
   align-self: top;
+}
+
+img.avatar {
+  width:100%;
+}
+
+.image-cropper {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
 }
 
 .BP {
@@ -82,6 +100,10 @@ li span {
 
 .Email {
   border-top: 10px solid #FF9800;
+}
+
+.Video {
+  border-top: 10px solid #FF98ee;
 }
 
 </style>
