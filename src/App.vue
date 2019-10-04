@@ -12,11 +12,12 @@
       </table>
     </div>
     <Phase
-    v-for="phase in phases"
-    v-bind:phase="phase"
-    v-bind:key="phase.id"
-    v-bind:class="phase.title"
-    v-bind:users="users"
+      v-for="phase in phases"
+      :phase="phase"
+      :key="phase.id"
+      :class="phase.title"
+      :users="users"
+      :phases="phases"
     />
   </div>
 </template>

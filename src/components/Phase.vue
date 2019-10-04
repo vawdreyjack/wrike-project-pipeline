@@ -9,6 +9,7 @@
           :project="item"
           :class="item.type"
           :users="users"
+          :allProjects="phases"
         />
       </draggable>
     </ul>
@@ -24,7 +25,8 @@ export default {
   name: 'Phase',
   props: {
     phase: Object,
-    users: Array
+    users: Array,
+    phases: Array
   },
   components: {
     Project,

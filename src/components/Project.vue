@@ -7,6 +7,7 @@
       <span></span>
       <span>Created {{ daysInPipe }}</span>
       <span style="justify-self:right;"><a :href="project.permalink" target="_blank"><img src="../assets/icons/external-link.png"></a></span>
+      <span>Priority Level: {{ project.priority }}</span>
     </li>
 </template>
 
@@ -16,7 +17,8 @@ export default {
   name: 'Project',
   props: {
     project: Object,
-    users: Array
+    users: Array,
+    allProjects: Array
   },
   computed: {
     daysInPipe() {
