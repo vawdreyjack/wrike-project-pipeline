@@ -3,22 +3,29 @@
 
 <template>
   <div id="app">
-    <div id="pipe-metrics">
-      <table>
-        <tr><th>Category</th><th>Avg. Days in Pipe</th></tr>
-        <tr v-for="(num, type) in avgTimeByType" v-bind:num="num" v-bind:key="type">
-          <td>{{ type }}</td><td>{{ num }}</td>
-        </tr>
-      </table>
+    <select id="client-select" v-model="activeClient">
+      <option v-for="client in clients" :value="client.folderId">{{ client.name}}</option>
+    </select>
+
+    <div id="pipeline-cont">
+      <div id="pipe-metrics">
+        <table>
+          <tr><th>Category</th><th>Avg. Days in Pipe</th></tr>
+          <tr v-for="(num, type) in avgTimeByType" v-bind:num="num" v-bind:key="type">
+            <td>{{ type }}</td><td>{{ num }}</td>
+          </tr>
+        </table>
+      </div>      
+      <Phase
+        v-for="phase in phases"
+        :phase="phase"
+        :key="phase.id"
+        :class="phase.title"
+        :users="users"
+        :phases="phases"
+        :color="phase.color"
+      />
     </div>
-    <Phase
-      v-for="phase in phases"
-      :phase="phase"
-      :key="phase.id"
-      :class="phase.title"
-      :users="users"
-      :phases="phases"
-    />
   </div>
 </template>
 
@@ -38,6 +45,11 @@ let phases = [
 
 let users = [];
 
+let clients =  [
+  {name: 'Vista Point Advisors', folderId: 'IEADMVUJI4PNO7QV'},
+  {name: 'CI4Life', folderId: 'IEADMVUJI4POSRR2'}
+];
+
 export default {
   name: 'app',
   components: {
@@ -47,8 +59,10 @@ export default {
     return {
       phases: phases,
       users: users,
+      clients: clients,
+      activeClient: clients[0].folderId,
       childFolders: Array,
-      isReady: false
+      isReady: false,
     }
   },
   computed: {
@@ -75,11 +89,20 @@ export default {
       return averages;
     }
   },
+  watch: {
+    activeClient: async function() {
+      const folderId = this.activeClient;
+      const { output, users } = await request(folderId);
+      this.phases = output;
+      this.users = users;
+    }
+  },
   methods: {
 
   },
   mounted : async function() {
-    const { output, users } = await request();
+    const folderId = this.clients[0].folderId;
+    const { output, users } = await request(folderId);
     this.phases = output;
     this.users = users;
   }
@@ -88,14 +111,22 @@ export default {
 
 <style>
 #app {
+  
+}
+
+#pipeline-cont {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(11, 1fr);
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin: 60px 10px 0 0;
+}
+
+#client-select {
+  font-size: 32px;
 }
 
 #pipe-metrics {

@@ -1,5 +1,5 @@
 <template>
-  <div class="phase">
+  <div class="phase" v-bind:style="borderStyle">
     <h3>{{ phase.title }}</h3>
     <ul>
       <draggable v-model="phase.projects" group="projects" @start="drag=true" @end="drag=true" @change="handleChange">
@@ -26,18 +26,24 @@ export default {
   props: {
     phase: Object,
     users: Array,
-    phases: Array
+    phases: Array,
+    color: String
   },
   components: {
     Project,
     draggable
   },
+  computed: {
+    borderStyle() {
+      return {
+        'border-top': `20px solid ${this.color}`
+        }
+    }
+  },
   methods: {
     async handleChange(e) {
       //Updating the asset remotely
       if (e.added) {
-        //console.log('Project Id', e.added.element.id);
-        //console.log('Phase Id', this.phase.id);
         const data =  {
           project: {
               customStatusId: this.phase.id
@@ -74,40 +80,5 @@ a {
   color: #42b983;
 }
 
-.Planned {
-  border-top: 20px solid #E91D63;
-}
-
-.Activated {
-  border-top: 20px solid #FF9800;
-}
-
-.Writing {
-  border-top: 20px solid #8BC34A;
-}
-
-.Editing {
-  border-top: 20px solid #009588;
-}
-
-.Design {
-  border-top: 20px solid #9C27B0;
-}
-
-.Approval {
-  border-top: 20px solid #00BCD4;
-}
-
-.Publication {
-  border-top: 20px solid #2096F3;
-}
-
-.Completed {
-  border-top: 20px solid #8BC34A;
-}
-
-.Review {
-  border-top: 20px solid #CDDC39;
-}
 
 </style>

@@ -1,14 +1,22 @@
 <template>
-    <li>
-      <span>{{ project.title }}</span>
-      <span><div class="image-cropper"><img class="avatar" :src="avatarUrl"></div></span>
-      
-      <span><hr></span>
-      <span></span>
-      <span>Created {{ daysInPipe }}</span>
-      <span style="justify-self:right;"><a :href="project.permalink" target="_blank"><img src="../assets/icons/external-link.png"></a></span>
-      <span>Priority Level: {{ project.priority }}</span>
+  
+    <li class="project">
+      <v-popover>
+        <div>
+          <span>{{ project.title }}</span>
+          <span><div class="image-cropper"><img class="avatar" :src="avatarUrl"></div></span>
+          
+          <span><hr></span>
+          <span></span>
+          <span>Created {{ daysInPipe }}</span>
+          <span style="justify-self:right;"><a :href="project.permalink" target="_blank"><img src="../assets/icons/external-link.png"></a></span>
+          <span>Priority Level: {{ project.priority }}</span>
+        </div>
+        <div slot="popover">{{ project.description }}</div>
+      </v-popover>
     </li>
+    
+  
 </template>
 
 <script>
@@ -32,9 +40,9 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 
-li {
+li.project {
   display: grid;
   grid-template-columns: 1fr 60px;
   grid-column-gap: 2px;
@@ -47,7 +55,7 @@ li {
   cursor: grab;
 }
 
-li span {
+li.project span {
   align-self: top;
 }
 
@@ -106,6 +114,11 @@ img.avatar {
 
 .Video {
   border-top: 10px solid #FF98ee;
+}
+
+.popover {
+  background-color: wheat;
+  font-size: 16px;
 }
 
 </style>
